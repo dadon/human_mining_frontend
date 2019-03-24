@@ -12,6 +12,12 @@ export default new Router({
             path: "/",
             name: "main",
             component: MainPage
+        },
+
+        {
+            path: "/lvl/:address",
+            name: "level",
+            component: MainPage
         }
     ]
 });

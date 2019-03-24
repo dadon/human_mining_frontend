@@ -1,5 +1,5 @@
 <template>
-    <DisplayCanvas />
+    <DisplayCanvas :address="address"/>
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
     components: { DisplayCanvas },
     computed: {
         address() {
-            return this.$route.params.address || "0x017b9d3cFB2F775E4d24C9e93D7D6E3679E3F1fF";
+            return this.$route.params.address || "1";
         }
     }
 };

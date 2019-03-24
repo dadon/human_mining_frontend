@@ -19,3 +19,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+scrips/images/*
+scrips/data.json
+src/secret.js
