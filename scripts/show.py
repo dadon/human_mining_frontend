@@ -1,8 +1,10 @@
 from PIL import Image, ImageChops
 import sys
 
+
 def logical_xor(str1, str2):
     return bool(str1) ^ bool(str2)
+
 
 infile1 = Image.open(sys.argv[1])
 # infile1.convert("1")

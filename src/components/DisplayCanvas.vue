@@ -6,6 +6,7 @@
 
 <script>
 import ImageLoader from "../utils/ImageLoader";
+import Web3Wrapper from "../Web3Wrapper";
 
 
 // function getPixelRatio() {
@@ -26,6 +27,10 @@ import ImageLoader from "../utils/ImageLoader";
 //     return pixelRatio;
 // }
 
+Web3Wrapper.init();
+
+
+
 export default {
     name: "DisplayCanvas",
     props: {
@@ -45,13 +50,11 @@ export default {
     methods: {
         async loadAndDraw() {
             // load image
-            const image1 = await ImageLoader.loadImageAsync("out1.png");
-            const image2 = await ImageLoader.loadImageAsync("out2.png");
+            const image1 = await ImageLoader.loadImageAsync("1_back.png");
+            const image2 = await ImageLoader.loadImageAsync("1_front.png");
             this.img1Data = image1.image;
             this.img2Data = image2.image;
             this.ctx = this.canvas.getContext("2d");
-
-            this.pixelRatio =
 
             this.canvas.addEventListener("mousemove", this.onMouseMove);
 
@@ -64,15 +67,17 @@ export default {
             const bounds = this.canvas.getBoundingClientRect();
             let x = (e.x - bounds.left - this.canvas.clientLeft);
             let y = (e.y - bounds.top - this.canvas.clientTop);
-            this.x = x - 128;
-            this.y = y - 128;
+            this.x = Math.floor(x - this.img2Data.width / 2);
+            this.y = Math.floor(y - this.img2Data.height / 2);
+
+            console.log(this.x, this.y);
         },
 
         update() {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.globalCompositeOperation = "exclusion";
-            this.ctx.drawImage(this.img1Data, 200, 200, 256, 256);
-            this.ctx.drawImage(this.img2Data, this.x, this.y, 256, 256);
+            this.ctx.drawImage(this.img1Data, 0, 0, this.img1Data.width, this.img1Data.height);
+            this.ctx.drawImage(this.img2Data, this.x, this.y, this.img2Data.width, this.img2Data.height);
             requestAnimationFrame(this.update);
         }
     },
