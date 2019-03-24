@@ -137,8 +137,8 @@ export default {
         sendWord() {
             console.log(this.currentWord);
 
-            // Web3Wrapper.addWords();
-            Web3Wrapper.sendWord(this.address, this.currentWord.toLowerCase());
+            Web3Wrapper.addWords();
+            // Web3Wrapper.sendWord(this.address, this.currentWord.toLowerCase());
         },
 
         nextWord() {

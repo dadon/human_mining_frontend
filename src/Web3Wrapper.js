@@ -72,22 +72,22 @@ export default {
 
     // remove
     async addWords() {
-        const secretData = require("./secret").default;
+        // const secretData = require("./secret").default;
 
-        for (let el of secretData.data) {
-            console.log("el", el);
-            await new Promise((resolve, reject) => {
-                this.contract.methods.setTokenType(el.num, el.word, el.word).send({ from: this.account }, (error, result) => {
-                        if (!error) {
-                            resolve(result);
-                        } else {
-                            reject(result);
-                        }
-                    });
-            });
-
-            await Misc.sleep(1000);
-        }
+        // for (let el of secretData.data) {
+        //     console.log("el", el);
+        //     await new Promise((resolve, reject) => {
+        //         this.contract.methods.setTokenType(el.num, el.word, "image").send({ from: this.account }, (error, result) => {
+        //                 if (!error) {
+        //                     resolve(result);
+        //                 } else {
+        //                     reject(result);
+        //                 }
+        //             });
+        //     });
+        //
+        //     await Misc.sleep(1000);
+        // }
     },
 
     sendWord(word_num, word) {
