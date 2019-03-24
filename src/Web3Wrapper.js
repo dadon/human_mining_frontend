@@ -19,6 +19,8 @@ export default {
         this.account = accounts[0];
         const option = { from: accounts[0] };
 
+        console.log("abi", MetaCoin.main);
+
         this.contract = new this.web3.eth.Contract(MetaCoin.main, "0x16cca16af1a9c133ad7c47e1f335aeb3ac15708e");
 
         this.updateUserLevel();
