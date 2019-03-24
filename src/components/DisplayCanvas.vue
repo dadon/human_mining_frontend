@@ -1,30 +1,33 @@
 <template>
     <div class="game-parent">
-        <h1>Proof of Human</h1>
-        <h3>Level {{ this.address }}</h3>
-        <h3>User level {{ this.userLevel }}</h3>
+        <h1>Proof of Human Work</h1>
+        <h3>Уровень {{ this.address }}</h3>
         <div>
             <div class="send-word-parent" v-if="userLevel < level">
-                <input type="text" placeholder="Enter the word" v-model="currentWord">
+                Введи то что ты видишь в хаосе ({{ currentWordLen }} букв):
+                <input type="text" placeholder="" v-model="currentWord">
                 <button @click="sendWord">Send</button>
             </div>
 
             <div class="send-word-success" v-if="userLevel >= level">
-                Already Solved
-                <button @click="nextWord" v-if="hasNext">Next</button>
+                Эта уровень пройден
+                <button @click="nextWord" v-if="hasNext">Следующий</button>
             </div>
 
             <div class="canvas-parent">
-                <div>
+                <canvas id="canvas" width="200" height="200"></canvas>
+
+                <div class="pos">
                     <span>X: {{ x }}</span>
                     <span>  Y: {{ y }}</span>
                 </div>
-                <canvas id="canvas" width="200" height="200"></canvas>
             </div>
             <div class="top" v-if="top">
-                <h3>First owners</h3>
+                <h3>Ваш уровень {{ this.userLevel }}</h3>
+                <h3>Топ</h3>
                 <div class="top-item" v-for="item in top">
-                    <span>Level {{ item.level }}</span>
+                    <span v-if="item.max"><b>Победитель: </b></span>
+                    <span v-if="!item.max">Уровень {{ item.level }}:   </span>
                     <span v-if="item.name">{{ item.name }}</span>
                     <span v-if="!item.name">{{ item.address }}</span>
                 </div>
@@ -81,6 +84,7 @@ export default {
             x: 0,
             y: 0,
             currentWord: null,
+            currentWordLen: 0,
             top: null,
             topLoading: false,
         };
@@ -90,7 +94,7 @@ export default {
         async loadAndDraw() {
             console.log(this.currentAddress);
             const currentImage = data.images[this.currentAddress];
-            console.log(currentImage);
+            this.currentWordLen = currentImage.word_len;
 
             const image1 = await ImageLoader.loadImageAsync("images/" + currentImage.num + "_back.png");
             const image2 = await ImageLoader.loadImageAsync("images/" + currentImage.num + "_front.png");
@@ -159,6 +163,13 @@ export default {
 
         hasNext() {
             return this.level < this.maxLevel;
+        },
+
+        wordLen() {
+            if (this.currentAddress) {
+                return data.images[this.currentAddress].word_len;
+            }
+            return 0;
         }
     },
 
@@ -193,6 +204,7 @@ export default {
     float: left;
     width: 400px;
     height: 400px;
+    text-align: left;
 
     /*background: url("../assets/logo.png");*/
 }
@@ -204,5 +216,19 @@ export default {
     image-rendering: -webkit-crisp-edges;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
+}
+
+.send-word-parent, .send-word-success {
+    text-align: left;
+}
+
+.send-word-success {
+    color: green;
+}
+
+.pos {
+    position: absolute;
+    top: 410px;
+    left: 0px
 }
 </style>

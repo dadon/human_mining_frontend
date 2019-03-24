@@ -19,7 +19,7 @@ export default {
         this.account = accounts[0];
         const option = { from: accounts[0] };
 
-        this.contract = new this.web3.eth.Contract(MetaCoin.main, "0x4ad0765e7116dd567ca4bea0dabf783e2c342ef6");
+        this.contract = new this.web3.eth.Contract(MetaCoin.main, "0x16cca16af1a9c133ad7c47e1f335aeb3ac15708e");
 
         this.updateUserLevel();
 
@@ -233,11 +233,12 @@ export default {
             maxCrafted--;
         }
 
-        if (!top[0].max) {
+        if (top.length > 0 && !top[0].max) {
             top.unshift({
                 level: 42,
                 address: null,
-                name: "unknown"
+                name: "unknown",
+                max: true
             });
         }
 
