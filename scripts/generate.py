@@ -10,8 +10,8 @@ import sys
 image = Image.open(sys.argv[1])
 num, word = sys.argv[1].split("/")[-1].split(".")[0].split("_")
 
-size_x = 400
-size_y = 400
+size_x = 200
+size_y = 200
 
 outfile1 = Image.new("1", [size_x, size_y])
 
@@ -19,6 +19,12 @@ outfile2 = Image.new("1", [dimension * 2 for dimension in image.size])
 
 offset_x = random.randint(1, size_x - outfile2.size[0] - 1)
 offset_y = random.randint(1, size_y - outfile2.size[1] - 1)
+
+if offset_x % 2 != 0:
+    offset_x -= 1
+
+if offset_y % 2 != 0:
+    offset_y -= 1
 
 # print(offset_x, offset_y)
 
@@ -118,6 +124,7 @@ except JSONDecodeError:
 
 data['images'][num] = {
     'word': word,
+    'word_len': len(word),
     'num': num,
     'offset': (offset_x, offset_y)
 }
