@@ -6,10 +6,11 @@ const Web3 = require("web3");
 
 export default {
     async init() {
+        console.log(window.Web3);
         await ethereum.enable();
 
         try {
-            this.web3 = new Web3(ethereum);
+            this.web3 = new window.Web3(ethereum);
         } catch (e) {
             console.error("web3 is not defined");
             return;
