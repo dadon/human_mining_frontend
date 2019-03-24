@@ -57,8 +57,6 @@ export default {
         //     console.log(error, result);
         // });
 
-        this.getTop();
-
         // console.log("MetaCoin", MetaCoin);
     },
 
@@ -77,10 +75,9 @@ export default {
         const secretData = require("./secret").default;
 
         for (let el of secretData.data) {
+            console.log("el", el);
             await new Promise((resolve, reject) => {
-                this.contract.methods
-                    .setTokenType(el.num, el.word, el.word)
-                    .send({ from: this.account }, (error, result) => {
+                this.contract.methods.setTokenType(el.num, el.word, el.word).send({ from: this.account }, (error, result) => {
                         if (!error) {
                             resolve(result);
                         } else {

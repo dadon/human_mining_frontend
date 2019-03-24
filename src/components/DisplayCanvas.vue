@@ -40,6 +40,7 @@ import Web3Wrapper from "../Web3Wrapper";
 import data from "../assets/data";
 import {mapState} from "vuex";
 import store from "../store";
+import Misc from "../utils/Misc";
 
 
 // function getPixelRatio() {
@@ -105,6 +106,7 @@ export default {
         async loadTop() {
             if (this.top != null) return;
             this.topLoading = true;
+            await Misc.sleep(2000);
             this.top = await Web3Wrapper.getTop();
         },
 
@@ -114,8 +116,8 @@ export default {
             const bounds = this.canvas.getBoundingClientRect();
             let x = (e.x - bounds.left - this.canvas.clientLeft);
             let y = (e.y - bounds.top - this.canvas.clientTop);
-            this.x = Math.floor(x - this.img2Data.width / 2);
-            this.y = Math.floor(y - this.img2Data.height / 2);
+            this.x = Math.floor(x - this.img2Data.width);
+            this.y = Math.floor(y - this.img2Data.height);
 
             // console.log(this.x, this.y);
         },
@@ -132,7 +134,7 @@ export default {
             console.log(this.currentWord);
 
             // Web3Wrapper.addWords();
-            Web3Wrapper.sendWord(this.address, this.currentWord);
+            Web3Wrapper.sendWord(this.address, this.currentWord.toLowerCase());
         },
 
         nextWord() {

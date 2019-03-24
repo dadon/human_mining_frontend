@@ -1,0 +1,22 @@
+{
+  "name": "human_mining_contract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "truffle-flattener contracts/MetaCoin.sol > build/MetaCoin.sol",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "openzeppelin-solidity": "2.1.3",
+    "solc": "^0.5.2"
+  },
+  "devDependencies": {
+    "truffle-flattener": "^1.3.0"
+  }
+}
